@@ -1,246 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator for Exams - Smart CSC Tools</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Age Calculator & VLE Quick Utilities - CSC VLE Tools</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--tx:#1b2430;--mu:#5d6b7a;--bd:#d5dce4;--pr:#d97706;--pr2:#fef3c7;--er:#b3261e;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+header{background:var(--pr);color:var(--on);padding:14px 16px;text-align:center}
+header h1{margin:0;font-size:1.2rem}header p{margin:2px 0 8px;font-size:.82rem;opacity:.9}
+.lg button{background:transparent;color:var(--on);border:1px solid var(--on);padding:5px 14px;margin:0 2px;border-radius:16px;cursor:pointer;font:inherit;font-size:.82rem}
+.lg button.a{background:var(--on);color:var(--pr)}
+main{max-width:900px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px}
+h2.t{font-size:1.0rem;margin:0 0 12px;color:var(--pr)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label{display:block;font-size:.8rem;color:var(--mu);margin-bottom:3px;font-weight:600}
+input,select{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+.btn{background:var(--pr);color:var(--on);border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:.92rem}
+.btn.s{background:var(--card);color:var(--pr);border:1px solid var(--pr)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.utility-dock{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:15px;}
+.utility-card{background:var(--pr2);border:1px solid #f59e0b;padding:12px;border-radius:8px;text-align:center;text-decoration:none;color:var(--tx);font-weight:600;font-size:0.9rem;}
+.utility-card:hover{background:#fde68a;}
+#out{display:none}
 
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            padding: 20px;
-        }
+.paper{background:#fff;color:#111;border:1px solid var(--bd);border-radius:6px;padding:20mm;width:210mm;min-height:297mm;margin:0 auto;text-align:center;}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 15px;
-            color: #a81c42;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-top: 4px solid #a81c42;
-        }
-
-        .header h1 {
-            color: #a81c42;
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Calculator Card */
-        .calc-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 8px;
-        }
-
-        input[type="date"] {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .btn-calculate {
-            background-color: #a81c42;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .btn-calculate:hover {
-            background-color: #871433;
-        }
-
-        /* Result Display Area */
-        .result-box {
-            margin-top: 30px;
-            background: #fdf3f5;
-            border: 1px solid #f2c2cd;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            display: none;
-        }
-
-        .result-box h3 {
-            color: #a81c42;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .age-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        @media (max-width: 600px) {
-            .age-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .age-card {
-            background: #fff;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-            border-top: 3px solid #a81c42;
-        }
-
-        .age-card span {
-            display: block;
-            font-size: 24px;
-            font-weight: bold;
-            color: #222;
-        }
-
-        .age-card label {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            margin-bottom: 0;
-        }
-    </style>
+@page{size:A4;margin:0}
+@media print{body{background:#fff}header,#form,.noprint{display:none!important}main{padding:0}.paper{border:0;padding:20mm;width:210mm;height:297mm;position:absolute;left:0;top:0;page-break-after:avoid}}
+</style>
 </head>
 <body>
-
-    <div class="container">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-        
-        <div class="header">
-            <h1><i class="fa-solid fa-calculator"></i> Age Calculator for Government Exams</h1>
-            <p>Calculate exact age in years, months, and days based on any cut-off date.</p>
-        </div>
-
-        <div class="calc-card">
-            <div class="input-group">
-                <label>Date of Birth (DOB)</label>
-                <input type="date" id="dobInput">
-            </div>
-
-            <div class="input-group">
-                <label>Calculate Age As On (Cut-off Date)</label>
-                <input type="date" id="targetDateInput">
-            </div>
-
-            <button class="btn-calculate" onclick="calculateAge()"><i class="fa-solid fa-clock"></i> Calculate Exact Age</button>
-
-            <div id="resultArea" class="result-box">
-                <h3>Your Exact Age</h3>
-                <div class="age-grid">
-                    <div class="age-card">
-                        <span id="yearsVal">0</span>
-                        <label>Years</label>
-                    </div>
-                    <div class="age-card">
-                        <span id="monthsVal">0</span>
-                        <label>Months</label>
-                    </div>
-                    <div class="age-card">
-                        <span id="daysVal">0</span>
-                        <label>Days</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+<header>
+  <div style="display:flex; justify-content:space-between; align-items:center; max-width:900px; margin:0 auto; padding-bottom:6px;">
+    <a href="index.html" style="color:#fff; text-decoration:none; font-weight:bold; font-size:0.9rem;"><i class="fa fa-home"></i> Portal Home</a>
+    <div><h1 style="display:inline;" data-i="Age Calculator & VLE Utilities|आयु कैलकुलेटर व वीएलई यूटिलिटीज"></h1></div>
+    <div style="width:90px;"></div>
+  </div>
+  <p data-i="Calculate exact age for government exams & access quick tools|सरकारी परीक्षाओं के लिए सटीक आयु गणना करें और त्वरित टूल्स का उपयोग करें"></p>
+  <div class="lg"><button data-l="en">English</button><button data-l="hi">हिंदी</button><button data-l="both" class="a">English + हिंदी</button></div>
+</header>
+<main>
+<div id="form">
+  <div class="card">
+    <h2 class="t">1. <span data-i="Age Calculation Parameters|आयु गणना मापदंड"></span></h2>
+    <div class="g">
+      <div><label data-i="Date of Birth|जन्मतिथि"></label><input id="dob" type="date" value="2000-05-15"></div>
+      <div><label data-i="Calculate Age as on (Cutoff Date)|इस तारीख तक आयु गणना करें"></label><input id="cutoffDate" type="date" value="2026-01-01"></div>
     </div>
+  </div>
 
-    <script>
-        // Set default target date to today
-        document.getElementById('targetDateInput').valueAsDate = new Date();
+  <div class="card">
+    <h2 class="t">2. <span data-i="VLE Quick Utility Dock|वीएलई त्वरित यूटिलिटी डॉक"></span></h2>
+    <p style="font-size:0.85rem; color:#666;" data-i="Instant shortcuts for daily cyber cafe document processing tasks:|दैनिक साइबर कैफे दस्तावेजों के लिए त्वरित शॉर्टकट:"></p>
+    <div class="utility-dock">
+      <a href="tools_image_compressor.html" class="utility-card"><i class="fa fa-compress"></i><br>Image Compressor<br><small>छवि संपीडक</small></a>
+      <a href="tools_photo_resize.html" class="utility-card"><i class="fa fa-image"></i><br>Photo & Sign Resizer<br><small>फोटो व साइन साइज़र</small></a>
+      <a href="tools_pdf_merger.html" class="utility-card"><i class="fa fa-object-group"></i><br>PDF Merger<br><small>पीडीएफ मर्जर</small></a>
+      <a href="tools_jpg_to_pdf.html" class="utility-card"><i class="fa fa-file-pdf"></i><br>JPG to PDF Converter<br><small>जेपीजी से पीडीएफ</small></a>
+    </div>
+  </div>
 
-        function calculateAge() {
-            const dobVal = document.getElementById('dobInput').value;
-            const targetVal = document.getElementById('targetDateInput').value;
+  <div class="row" style="margin-top:15px;">
+    <button class="btn" id="calc" data-i="Calculate Exact Age|सटीक आयु गणना करें"></button>
+  </div>
+</div>
 
-            if (!dobVal || !targetVal) {
-                alert('Please select both Date of Birth and Cut-off Date.');
-                return;
-            }
+<div id="out">
+  <div class="card noprint">
+    <div class="row">
+      <button class="btn" id="back" data-i="← Back to Calculator|← कैलकुलेटर पर वापस जाएँ"></button>
+    </div>
+  </div>
+  <div class="paper" id="paper">
+    <h2 style="color:var(--pr); margin-bottom:20px;" data-i="Government Exam Age Calculation Result|सरकारी परीक्षा आयु गणना परिणाम"></h2>
+    <div style="font-size:1.6rem; font-weight:bold; background:var(--pr2); padding:20px; border-radius:10px; border:2px dashed var(--pr);" id="resultBox"></div>
+  </div>
+</div>
+</main>
+<script>
+var lang="both", $=function(id){return document.getElementById(id)};
+function L(s){var p=s.split("|");return p.length<2?s:(lang=="en"?p[0]:lang=="hi"?p[1]:p[0]+" / "+p[1])}
+function apply(){
+  document.querySelectorAll("[data-i]").forEach(function(e){e.textContent=L(e.dataset.i)});
+  document.querySelectorAll(".lg button").forEach(function(b){b.className=b.dataset.l==lang?"a":""});
+}
+function calculateAge(){
+  let dob = new Date($("dob").value);
+  let cutoff = new Date($("cutoffDate").value);
+  if(isNaN(dob) || isNaN(cutoff)){ alert("Please select valid dates! | कृपया मान्य तिथियां चुनें!"); return; }
 
-            const dob = new Date(dobVal);
-            const target = new Date(targetVal);
+  let years = cutoff.getFullYear() - dob.getFullYear();
+  let months = cutoff.getMonth() - dob.getMonth();
+  let days = cutoff.getDate() - dob.getDate();
 
-            if (dob > target) {
-                alert('Date of Birth cannot be later than the Cut-off Date!');
-                return;
-            }
+  if(days < 0){
+    months--;
+    let prevMonth = new Date(cutoff.getFullYear(), cutoff.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+  if(months < 0){
+    years--;
+    months += 12;
+  }
 
-            let years = target.getFullYear() - dob.getFullYear();
-            let months = target.getMonth() - dob.getMonth();
-            let days = target.getDate() - dob.getDate();
-
-            if (days < 0) {
-                months--;
-                // Get days in previous month of target date
-                const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            document.getElementById('yearsVal').innerText = years;
-            document.getElementById('monthsVal').innerText = months;
-            document.getElementById('daysVal').innerText = days;
-
-            document.getElementById('resultArea').style.display = 'block';
-        }
-    </script>
+  $("resultBox").innerHTML = `${years} Years, ${months} Months, and ${days} Days<br><small style="font-size:1rem; color:#555;">(वर्ष, महीने और दिन)</small>`;
+  $("form").style.display="none";
+  $("out").style.display="block";
+  window.scrollTo(0,0);
+}
+document.querySelector(".lg").addEventListener("click",function(e){var l=e.target.dataset.l;if(l){lang=l;apply();}});
+$("calc").onclick = calculateAge;
+$("back").onclick = function(){$("out").style.display="none";$("form").style.display="block";};
+apply();
+</script>
 </body>
 </html>
