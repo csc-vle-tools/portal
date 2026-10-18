@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSC Rubber Stamp Maker - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Workspace Grid */
+        .workspace {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Control Panel */
+        .form-panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .form-panel h3 {
+            font-size: 15px;
+            color: #a81c42;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 6px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .btn-action {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background-color: #218838;
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .stamp-preview-box {
+            background: #ffffff;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+            margin-bottom: 20px;
+        }
+
+        /* Print Media Styling */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #stampSvg, #stampSvg * {
+                visibility: visible;
+            }
+            .stamp-preview-box {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border: none;
+                box-shadow: none;
+            }
+            .form-panel, .header, .back-link, .btn-action {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-stamp"></i> CSC Rubber Stamp Maker</h1>
+            <p>Design and print professional circular rubber stamps for your CSC Center or Cyber Cafe.</p>
+        </div>
+
+        <div class="workspace">
+            <!-- Left Control Panel -->
+            <div class="form-panel">
+                <h3>1. Stamp Customization</h3>
+                <div class="input-group">
+                    <label>Outer Ring Text (Business / Center Name)</label>
+                    <input type="text" id="inputOuterText" value="CHOUHAN CSC CENTER & SERVICES" oninput="updateStamp()">
+                </div>
+                <div class="input-group">
+                    <label>Center Main Text</label>
+                    <input type="text" id="inputCenterText" value="VERIFIED" oninput="updateStamp()">
+                </div>
+                <div class="input-group">
+                    <label>Sub Text (VLE ID / License No)</label>
+                    <input type="text" id="inputSubText" value="VLE ID: 123456780000" oninput="updateStamp()">
+                </div>
+                <div class="input-group">
+                    <label>Bottom Text (Location)</label>
+                    <input type="text" id="inputBottomText" value="ROHTAK, HARYANA" oninput="updateStamp()">
+                </div>
+
+                <h3>2. Styling & Color</h3>
+                <div class="input-group">
+                    <label>Ink Color</label>
+                    <select id="inputColor" onchange="updateStamp()">
+                        <option value="#b91c1c">Traditional Red Ink</option>
+                        <option value="#1d4ed8">Traditional Blue Ink</option>
+                        <option value="#581c87">Violet / Purple Ink</option>
+                        <option value="#111827">Black Ink</option>
+                    </select>
+                </div>
+
+                <button class="btn-action" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save Stamp</button>
+            </div>
+
+            <!-- Right Preview Panel -->
+            <div class="preview-panel">
+                <div class="stamp-preview-box">
+                    <!-- SVG Stamp Renderer -->
+                    <svg id="stampSvg" width="320" height="320" viewBox="0 0 320 320">
+                        <defs>
+                            <!-- Top Arc Path -->
+                            <path id="topTextPath" d="M 40, 160 a 120,120 0 0,1 240,0" />
+                            <!-- Bottom Arc Path -->
+                            <path id="bottomTextPath" d="M 280, 160 a 120,120 0 0,1 -240,0" />
+                        </defs>
+
+                        <!-- Outer Borders -->
+                        <circle cx="160" cy="160" r="150" stroke="#b91c1c" stroke-width="4" fill="none" id="border1" />
+                        <circle cx="160" cy="160" r="142" stroke="#b91c1c" stroke-width="1.5" fill="none" id="border2" />
+
+                        <!-- Outer Ring Top Text -->
+                        <text fill="#b91c1c" font-size="13" font-weight="bold" font-family="Arial" letter-spacing="1.5" id="textOuterColor">
+                            <textPath href="#topTextPath" startOffset="50%" text-anchor="middle" id="svgOuterText">CHOUHAN CSC CENTER & SERVICES</textPath>
+                        </text>
+
+                        <!-- Outer Ring Bottom Text -->
+                        <text fill="#b91c1c" font-size="12" font-weight="bold" font-family="Arial" letter-spacing="1" id="textBottomColor">
+                            <textPath href="#bottomTextPath" startOffset="50%" text-anchor="middle" id="svgBottomText">ROHTAK, HARYANA</textPath>
+                        </text>
+
+                        <!-- Center Elements -->
+                        <text x="160" y="145" text-anchor="middle" fill="#b91c1c" font-size="20" font-weight="900" font-family="Arial" id="svgCenterText">VERIFIED</text>
+                        <text x="160" y="175" text-anchor="middle" fill="#b91c1c" font-size="13" font-weight="bold" font-family="Arial" id="svgSubText">VLE ID: 123456780000</text>
+
+                        <!-- Decorative Stars -->
+                        <text x="50" y="165" font-size="14" fill="#b91c1c" id="star1">★</text>
+                        <text x="258" y="165" font-size="14" fill="#b91c1c" id="star2">★</text>
+                    </svg>
+                </div>
+                <p style="font-size: 13px; color: #666; text-align: center;">Click print to get a clean, vector-sharp stamp ready for stamping documents.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateStamp() {
+            const outerText = document.getElementById('inputOuterText').value;
+            const centerText = document.getElementById('inputCenterText').value;
+            const subText = document.getElementById('inputSubText').value;
+            const bottomText = document.getElementById('inputBottomText').value;
+            const color = document.getElementById('inputColor').value;
+
+            document.getElementById('svgOuterText').textContent = outerText;
+            document.getElementById('svgCenterText').textContent = centerText;
+            document.getElementById('svgSubText').textContent = subText;
+            document.getElementById('svgBottomText').textContent = bottomText;
+
+            // Apply color to all stamp elements
+            document.getElementById('border1').setAttribute('stroke', color);
+            document.getElementById('border2').setAttribute('stroke', color);
+            document.getElementById('svgOuterText').parentNode.setAttribute('fill', color);
+            document.getElementById('svgBottomText').parentNode.setAttribute('fill', color);
+            document.getElementById('svgCenterText').setAttribute('fill', color);
+            document.getElementById('svgSubText').setAttribute('fill', color);
+            document.getElementById('star1').setAttribute('fill', color);
+            document.getElementById('star2').setAttribute('fill', color);
+        }
+    </script>
+</body>
+</html>

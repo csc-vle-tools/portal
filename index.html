@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Utility Portal - High Performance Suite</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent-cyan: #00f2fe;
+            --accent-purple: #7928ca;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(121, 40, 202, 0.2) 0%, rgba(0, 242, 254, 0.1) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .hero-title h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to right, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .hero-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .stats-badge {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-item span {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        .stat-item label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Layout Split */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 950px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Left Sidebar Nav */
+        .sidebar-nav {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 12px 10px 36px;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .nav-category {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent-cyan);
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        /* Right Content Tile Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .neon-tile {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .neon-tile:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.1);
+        }
+
+        .neon-tile:hover::before {
+            opacity: 1;
+        }
+
+        .tile-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+
+        .tile-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .tile-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .tile-action {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Modern Hero Header -->
+        <div class="hero-banner">
+            <div class="hero-title">
+                <h1><i class="fa-solid fa-bolt"></i> CSC & Cyber Utility Workspace</h1>
+                <p>Next-generation client-side toolset for high-speed documentation and calculations.</p>
+            </div>
+            <div class="stats-badge">
+                <div class="stat-item">
+                    <span>17</span>
+                    <label>Active Tools</label>
+                </div>
+                <div class="stat-item">
+                    <span>100%</span>
+                    <label>Client Privacy</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Split Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar-nav">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Quick search..." onkeyup="filterTools()">
+                </div>
+
+                <div class="nav-category">
+                    <button class="category-btn active" onclick="filterCategory('all', this)">
+                        <i class="fa-solid fa-cubes"></i> All Utilities
+                    </button>
+                    <button class="category-btn" onclick="filterCategory('documents', this)">
+                        <i class="fa-solid fa-file-contract"></i> Documents
+                    </button>
+                    <button class="category-btn" onclick="filterCategory('cards', this)">
+                        <i class="fa-solid fa-id-card"></i> Card & Printing
+                    </button>
+                    <button class="category-btn" onclick="filterCategory('calculators', this)">
+                        <i class="fa-solid fa-calculator"></i> Calculators
+                    </button>
+                    <button class="category-btn" onclick="filterCategory('utilities', this)">
+                        <i class="fa-solid fa-screwdriver-wrench"></i> Image & PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid-container" id="toolsGrid">
+
+                <!-- Documents -->
+                <a href="tools_biodata_maker.html" class="neon-tile" data-category="documents">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-heart"></i></div>
+                        <div class="tile-title">Marriage Biodata</div>
+                        <div class="tile-desc">Indian traditional biodata format with customizable borders and image insertion.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_resume_builder.html" class="neon-tile" data-category="documents">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-file-lines"></i></div>
+                        <div class="tile-title">Resume / CV Builder</div>
+                        <div class="tile-desc">Draft clean, structured resumes for government and corporate opportunities.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_cover_letter_generator.html" class="neon-tile" data-category="documents">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div class="tile-title">Cover Letter Maker</div>
+                        <div class="tile-desc">Produce job-specific cover letters tailored for immediate print or PDF export.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_agreement_format_generator.html" class="neon-tile" data-category="documents">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-file-contract"></i></div>
+                        <div class="tile-title">Agreement Format</div>
+                        <div class="tile-desc">Legal rent agreements and service contracts formatted for stamp paper.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_salary_slip_generator.html" class="neon-tile" data-category="documents">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <div class="tile-title">Salary Slip Generator</div>
+                        <div class="tile-desc">Calculate earnings, PF, TDS, and generate official monthly employee payslips.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_bill_receipt_generator.html" class="neon-tile" data-category="documents">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-receipt"></i></div>
+                        <div class="tile-title">Bill Payment Receipt</div>
+                        <div class="tile-desc">Issue custom receipts for electricity, water, gas, and broadband payments.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <!-- Cards & Print -->
+                <a href="tools_pan_aadhaar_print.html" class="neon-tile" data-category="cards">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-id-card"></i></div>
+                        <div class="tile-title">PAN & ID Card Print</div>
+                        <div class="tile-desc">Auto-align front & back ID scans to official CR80 PVC dimensions.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_passport_photo_sheet.html" class="neon-tile" data-category="cards">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-images"></i></div>
+                        <div class="tile-title">Passport Photo Sheet</div>
+                        <div class="tile-desc">Generate 8-photo (4x6) or 30-photo (A4) grid sheets with cutting lines.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_csc_stamp_maker.html" class="neon-tile" data-category="cards">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-stamp"></i></div>
+                        <div class="tile-title">Rubber Stamp Maker</div>
+                        <div class="tile-desc">Design official circular rubber stamps with custom IDs and center names.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <!-- Calculators -->
+                <a href="tools_age_calculator.html" class="neon-tile" data-category="calculators">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="tile-title">Exam Age Calculator</div>
+                        <div class="tile-desc">Compute precise age in years, months, and days for cut-off eligibility dates.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_percentage_calculator.html" class="neon-tile" data-category="calculators">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-percent"></i></div>
+                        <div class="tile-title">Percentage Calculator</div>
+                        <div class="tile-desc">Calculate exam percentages, marks distributions, and percentage variance.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_cgpa_calculator.html" class="neon-tile" data-category="calculators">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="tile-title">CGPA Converter</div>
+                        <div class="tile-desc">Convert university CGPA / SGPA grades into percentage scores.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_loan_emi_calculator.html" class="neon-tile" data-category="calculators">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div class="tile-title">Loan EMI Calculator</div>
+                        <div class="tile-desc">Compute monthly installment repayments and total payable interest.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <!-- Utilities -->
+                <a href="tools_photo_resizer.html" class="neon-tile" data-category="utilities">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-crop-simple"></i></div>
+                        <div class="tile-title">Photo & Sign Resizer</div>
+                        <div class="tile-desc">Crop and compress photos/signatures to exact KB limits for official application portals.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_pdf_merger.html" class="neon-tile" data-category="utilities">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div class="tile-title">PDF Merger Engine</div>
+                        <div class="tile-desc">Convert and combine multiple image scans into a single formatted PDF document.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_image_text_extractor.html" class="neon-tile" data-category="utilities">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-font"></i></div>
+                        <div class="tile-title">Image OCR Extractor</div>
+                        <div class="tile-desc">Extract editable Hindi & English text from uploaded photos and scanned documents.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+                <a href="tools_qr_code_generator.html" class="neon-tile" data-category="utilities">
+                    <div>
+                        <div class="tile-icon"><i class="fa-solid fa-qrcode"></i></div>
+                        <div class="tile-title">QR Code Generator</div>
+                        <div class="tile-desc">Generate instantly downloadable QR codes for UPI IDs, URLs, and notes.</div>
+                    </div>
+                    <div class="tile-action">Launch Engine <i class="fa-solid fa-chevron-right"></i></div>
+                </a>
+
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 High-Performance Cyber Portal. All operations run 100% locally in your browser.</p>
+        </footer>
+    </div>
+
+    <script>
+        function filterCategory(category, element) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            const tiles = document.querySelectorAll('.neon-tile');
+            tiles.forEach(tile => {
+                if (category === 'all' || tile.getAttribute('data-category') === category) {
+                    tile.style.display = 'flex';
+                } else {
+                    tile.style.display = 'none';
+                }
+            });
+        }
+
+        function filterTools() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const tiles = document.querySelectorAll('.neon-tile');
+
+            tiles.forEach(tile => {
+                const title = tile.querySelector('.tile-title').innerText.toLowerCase();
+                const desc = tile.querySelector('.tile-desc').innerText.toLowerCase();
+
+                if (title.includes(query) || desc.includes(query)) {
+                    tile.style.display = 'flex';
+                } else {
+                    tile.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

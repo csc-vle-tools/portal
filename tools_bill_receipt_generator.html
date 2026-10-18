@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility Bill Payment Receipt Generator - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Workspace Grid */
+        .workspace {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Control Panel */
+        .form-panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .form-panel h3 {
+            font-size: 15px;
+            color: #a81c42;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 6px;
+            margin-top: 15px;
+        }
+
+        .form-panel h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 4px;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .btn-print {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-print:hover {
+            background-color: #218838;
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: auto;
+        }
+
+        .receipt-sheet {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20mm;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: #222;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px solid #a81c42;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #a81c42;
+            text-transform: uppercase;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .receipt-table th {
+            background: #a81c42;
+            color: white;
+            padding: 8px;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .receipt-table td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .total-box {
+            background: #fdf3f5;
+            border: 1px solid #f2c2cd;
+            padding: 12px;
+            text-align: right;
+            font-weight: bold;
+            color: #a81c42;
+            font-size: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .receipt-sheet, .receipt-sheet * {
+                visibility: visible;
+            }
+            .receipt-sheet {
+                position: absolute;
+                left: 0;
+                top: 0;
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                padding: 15mm;
+                width: 210mm;
+                height: 297mm;
+            }
+            .form-panel, .header, .back-link, .btn-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-receipt"></i> Utility Bill Payment Receipt Generator</h1>
+            <p>Generate professional payment receipts for electricity, water, gas, and broadband bills.</p>
+        </div>
+
+        <div class="workspace">
+            <!-- Left Form Panel -->
+            <div class="form-panel">
+                <h3>1. Center / Issuer Details</h3>
+                <div class="input-group">
+                    <label>Center / Service Name</label>
+                    <input type="text" id="centerName" value="Chouhan Digital & CSC Center" oninput="updateReceipt()">
+                </div>
+                <div class="input-group">
+                    <label>Center Address / VLE ID</label>
+                    <input type="text" id="centerAddress" value="Main Bazaar, Rohtak | VLE ID: 12345678" oninput="updateReceipt()">
+                </div>
+
+                <h3>2. Consumer & Bill Details</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Utility Type</label>
+                        <select id="utilityType" onchange="updateReceipt()">
+                            <option value="Electricity Bill">Electricity Bill</option>
+                            <option value="Water Bill">Water Bill</option>
+                            <option value="Piped Gas Bill">Piped Gas Bill</option>
+                            <option value="Broadband / Landline">Broadband / Landline</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Receipt Date</label>
+                        <input type="date" id="receiptDate" onchange="updateReceipt()">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Consumer Name</label>
+                        <input type="text" id="consumerName" value="Ramesh Kumar" oninput="updateReceipt()">
+                    </div>
+                    <div class="input-group">
+                        <label>Consumer / Account No</label>
+                        <input type="text" id="consumerId" value="CA-987654321" oninput="updateReceipt()">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Billing Month / Period</label>
+                    <input type="text" id="billMonth" value="August 2026" oninput="updateReceipt()">
+                </div>
+
+                <h3>3. Amount Breakdown (₹)</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Bill Amount</label>
+                        <input type="number" id="billAmount" value="1450" oninput="updateReceipt()">
+                    </div>
+                    <div class="input-group">
+                        <label>Service / Convenience Fee</label>
+                        <input type="number" id="serviceFee" value="30" oninput="updateReceipt()">
+                    </div>
+                </div>
+
+                <button class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save Receipt as PDF</button>
+            </div>
+
+            <!-- Right Preview Panel -->
+            <div class="preview-panel">
+                <div id="receiptSheet" class="receipt-sheet">
+                    <div class="receipt-header">
+                        <div class="receipt-title" id="prevCenterName">Chouhan Digital & CSC Center</div>
+                        <div id="prevCenterAddress" style="color:#555; font-size:12px; margin-top:3px;">Main Bazaar, Rohtak | VLE ID: 12345678</div>
+                        <div style="margin-top: 8px; font-weight: bold; font-size: 14px; color:#222;" id="prevReceiptType">ELECTRICITY BILL PAYMENT RECEIPT</div>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div>
+                            <div><strong>Consumer Name:</strong> <span id="prevConsumerName">Ramesh Kumar</span></div>
+                            <div><strong>Consumer / Account No:</strong> <span id="prevConsumerId">CA-987654321</span></div>
+                            <div><strong>Billing Month:</strong> <span id="prevBillMonth">August 2026</span></div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div><strong>Receipt No:</strong> <span id="prevReceiptNo">CSC-2026-8842</span></div>
+                            <div><strong>Date:</strong> <span id="prevReceiptDate">18/10/2026</span></div>
+                            <div><strong>Payment Status:</strong> <span style="color:#28a745; font-weight:bold;">SUCCESSFUL</span></div>
+                        </div>
+                    </div>
+
+                    <table class="receipt-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th style="text-align: right;">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="prevDesc">Electricity Bill Payment (August 2026)</td>
+                                <td style="text-align: right;" id="prevBaseAmount">₹ 1,450.00</td>
+                            </tr>
+                            <tr>
+                                <td>CSC Center Service & Processing Charge</td>
+                                <td style="text-align: right;" id="prevServiceFee">₹ 30.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="total-box">
+                        TOTAL AMOUNT PAID: <span id="prevTotalAmount">₹ 1,480.00</span>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:50px; font-size:12px; color:#555;">
+                        <div>
+                            <strong>Note:</strong> This is a computer-generated receipt issued through authorized CSC infrastructure.<br>
+                            Thank you for utilizing our digital services!
+                        </div>
+                        <div style="text-align:center;">
+                            <br><br>
+                            <strong>Authorized Signatory</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set default date to today
+        document.getElementById('receiptDate').valueAsDate = new Date();
+
+        function updateReceipt() {
+            document.getElementById('prevCenterName').innerText = document.getElementById('centerName').value;
+            document.getElementById('prevCenterAddress').innerText = document.getElementById('centerAddress').value;
+            
+            const utility = document.getElementById('utilityType').value;
+            document.getElementById('prevReceiptType').innerText = utility.toUpperCase() + ' PAYMENT RECEIPT';
+
+            document.getElementById('prevConsumerName').innerText = document.getElementById('consumerName').value;
+            document.getElementById('prevConsumerId').innerText = document.getElementById('consumerId').value;
+            
+            const month = document.getElementById('billMonth').value;
+            document.getElementById('prevBillMonth').innerText = month;
+            document.getElementById('prevDesc').innerText = `${utility} Payment (${month})`;
+
+            const rawDate = document.getElementById('receiptDate').value;
+            if (rawDate) {
+                const parts = rawDate.split('-');
+                document.getElementById('prevReceiptDate').innerText = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                document.getElementById('prevReceiptNo').innerText = `CSC-${parts[0]}-${Math.floor(1000 + Math.random() * 9000)}`;
+            }
+
+            const billAmt = parseFloat(document.getElementById('billAmount').value) || 0;
+            const feeAmt = parseFloat(document.getElementById('serviceFee').value) || 0;
+            const total = billAmt + feeAmt;
+
+            document.getElementById('prevBaseAmount').innerText = `₹ ${billAmt.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevServiceFee').innerText = `₹ ${feeAmt.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevTotalAmount').innerText = `₹ ${total.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+        }
+
+        // Initialize preview
+        updateReceipt();
+    </script>
+</body>
+</html>

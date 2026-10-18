@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator for Exams & Marks - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Calculator Sections */
+        .calc-section {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .calc-section h3 {
+            font-size: 16px;
+            color: #a81c42;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .input-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .input-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn-calc {
+            background-color: #a81c42;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .btn-calc:hover {
+            background-color: #871433;
+        }
+
+        .result-display {
+            margin-top: 15px;
+            background: #fdf3f5;
+            border: 1px solid #f2c2cd;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: #a81c42;
+            font-size: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-percent"></i> Percentage Calculator</h1>
+            <p>Calculate exam scores, percentages, and values instantly for students and CSC applications.</p>
+        </div>
+
+        <!-- Tool 1: Marks Percentage -->
+        <div class="calc-section">
+            <h3>1. Exam Marks Percentage Calculator</h3>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Marks Obtained</label>
+                    <input type="number" id="marksObtained" placeholder="e.g., 425">
+                </div>
+                <div class="input-group">
+                    <label>Total Maximum Marks</label>
+                    <input type="number" id="totalMarks" placeholder="e.g., 500">
+                </div>
+            </div>
+            <button class="btn-calc" onclick="calculateMarksPercentage()">Calculate Percentage</button>
+            <div id="marksResult" class="result-display"></div>
+        </div>
+
+        <!-- Tool 2: What is X% of Y -->
+        <div class="calc-section">
+            <h3>2. Find Percentage of a Value</h3>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Percentage (%)</label>
+                    <input type="number" id="percentageVal" placeholder="e.g., 18">
+                </div>
+                <div class="input-group">
+                    <label>Total Value (Number)</label>
+                    <input type="number" id="totalValue" placeholder="e.g., 2500">
+                </div>
+            </div>
+            <button class="btn-calc" onclick="calculateValueOfPercentage()">Calculate Value</button>
+            <div id="valueResult" class="result-display"></div>
+        </div>
+
+        <!-- Tool 3: Percentage Increase / Decrease -->
+        <div class="calc-section">
+            <h3>3. Percentage Increase / Decrease</h3>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Initial Value</label>
+                    <input type="number" id="initialVal" placeholder="e.g., 100">
+                </div>
+                <div class="input-group">
+                    <label>Final Value</label>
+                    <input type="number" id="finalVal" placeholder="e.g., 125">
+                </div>
+            </div>
+            <button class="btn-calc" onclick="calculatePercentageChange()">Calculate Change</button>
+            <div id="changeResult" class="result-display"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateMarksPercentage() {
+            const obtained = parseFloat(document.getElementById('marksObtained').value);
+            const total = parseFloat(document.getElementById('totalMarks').value);
+            const resBox = document.getElementById('marksResult');
+
+            if (isNaN(obtained) || isNaN(total) || total <= 0) {
+                alert('Please enter valid numbers for marks.');
+                return;
+            }
+
+            const percentage = (obtained / total) * 100;
+            resBox.innerHTML = `Percentage: ${percentage.toFixed(2)}%`;
+            resBox.style.display = 'block';
+        }
+
+        function calculateValueOfPercentage() {
+            const percent = parseFloat(document.getElementById('percentageVal').value);
+            const total = parseFloat(document.getElementById('totalValue').value);
+            const resBox = document.getElementById('valueResult');
+
+            if (isNaN(percent) || isNaN(total)) {
+                alert('Please enter valid numbers.');
+                return;
+            }
+
+            const result = (percent / 100) * total;
+            resBox.innerHTML = `${percent}% of ${total} is: ${result.toFixed(2)}`;
+            resBox.style.display = 'block';
+        }
+
+        function calculatePercentageChange() {
+            const initial = parseFloat(document.getElementById('initialVal').value);
+            const final = parseFloat(document.getElementById('finalVal').value);
+            const resBox = document.getElementById('changeResult');
+
+            if (isNaN(initial) || isNaN(final) || initial === 0) {
+                alert('Please enter valid non-zero values.');
+                return;
+            }
+
+            const difference = final - initial;
+            const percentageChange = (difference / initial) * 100;
+            const type = percentageChange >= 0 ? 'Increase' : 'Decrease';
+
+            resBox.innerHTML = `Percentage ${type}: ${Math.abs(percentageChange).toFixed(2)}%`;
+            resBox.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

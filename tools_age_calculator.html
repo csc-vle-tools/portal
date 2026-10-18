@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator for Exams - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Calculator Card */
+        .calc-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn-calculate {
+            background-color: #a81c42;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-calculate:hover {
+            background-color: #871433;
+        }
+
+        /* Result Display Area */
+        .result-box {
+            margin-top: 30px;
+            background: #fdf3f5;
+            border: 1px solid #f2c2cd;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .result-box h3 {
+            color: #a81c42;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .age-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .age-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .age-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border-top: 3px solid #a81c42;
+        }
+
+        .age-card span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .age-card label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-calculator"></i> Age Calculator for Government Exams</h1>
+            <p>Calculate exact age in years, months, and days based on any cut-off date.</p>
+        </div>
+
+        <div class="calc-card">
+            <div class="input-group">
+                <label>Date of Birth (DOB)</label>
+                <input type="date" id="dobInput">
+            </div>
+
+            <div class="input-group">
+                <label>Calculate Age As On (Cut-off Date)</label>
+                <input type="date" id="targetDateInput">
+            </div>
+
+            <button class="btn-calculate" onclick="calculateAge()"><i class="fa-solid fa-clock"></i> Calculate Exact Age</button>
+
+            <div id="resultArea" class="result-box">
+                <h3>Your Exact Age</h3>
+                <div class="age-grid">
+                    <div class="age-card">
+                        <span id="yearsVal">0</span>
+                        <label>Years</label>
+                    </div>
+                    <div class="age-card">
+                        <span id="monthsVal">0</span>
+                        <label>Months</label>
+                    </div>
+                    <div class="age-card">
+                        <span id="daysVal">0</span>
+                        <label>Days</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set default target date to today
+        document.getElementById('targetDateInput').valueAsDate = new Date();
+
+        function calculateAge() {
+            const dobVal = document.getElementById('dobInput').value;
+            const targetVal = document.getElementById('targetDateInput').value;
+
+            if (!dobVal || !targetVal) {
+                alert('Please select both Date of Birth and Cut-off Date.');
+                return;
+            }
+
+            const dob = new Date(dobVal);
+            const target = new Date(targetVal);
+
+            if (dob > target) {
+                alert('Date of Birth cannot be later than the Cut-off Date!');
+                return;
+            }
+
+            let years = target.getFullYear() - dob.getFullYear();
+            let months = target.getMonth() - dob.getMonth();
+            let days = target.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                // Get days in previous month of target date
+                const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('yearsVal').innerText = years;
+            document.getElementById('monthsVal').innerText = months;
+            document.getElementById('daysVal').innerText = days;
+
+            document.getElementById('resultArea').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

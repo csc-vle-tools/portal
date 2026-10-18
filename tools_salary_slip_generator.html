@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Slip / Payslip Generator - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Workspace Grid */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Control Panel */
+        .form-panel {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .form-panel h3 {
+            font-size: 15px;
+            color: #a81c42;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 4px;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .payslip-sheet {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 25px;
+            font-size: 12px;
+        }
+
+        .slip-header {
+            text-align: center;
+            border-bottom: 2px solid #a81c42;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .slip-company {
+            font-size: 18px;
+            font-weight: bold;
+            color: #a81c42;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .earnings-deductions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .earnings-deductions-table th {
+            background: #a81c42;
+            color: white;
+            padding: 6px;
+            font-size: 11px;
+            text-align: left;
+        }
+
+        .earnings-deductions-table td {
+            padding: 6px;
+            border-bottom: 1px solid #eee;
+            font-size: 12px;
+        }
+
+        .net-pay-box {
+            background: #fdf3f5;
+            border: 1px solid #f2c2cd;
+            padding: 10px;
+            text-align: right;
+            font-weight: bold;
+            color: #a81c42;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .btn-print {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn-print:hover {
+            background-color: #218838;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .payslip-sheet, .payslip-sheet * {
+                visibility: visible;
+            }
+            .payslip-sheet {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none;
+                padding: 10px;
+            }
+            .form-panel, .header, .back-link, .btn-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-file-invoice-dollar"></i> Salary Slip Generator</h1>
+            <p>Generate professional monthly salary slips with automated deductions and earnings breakdown.</p>
+        </div>
+
+        <div class="workspace">
+            <!-- Left Form Panel -->
+            <div class="form-panel">
+                <h3>1. Company Details</h3>
+                <div class="input-group">
+                    <label>Company Name</label>
+                    <input type="text" id="compName" value="Chouhan Digital Services" oninput="updatePayslip()">
+                </div>
+                <div class="input-group">
+                    <label>Company Address</label>
+                    <input type="text" id="compAddress" value="Main Bazaar, Rohtak, Haryana" oninput="updatePayslip()">
+                </div>
+
+                <h3>2. Employee Details</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Employee Name</label>
+                        <input type="text" id="empName" value="Amit Kumar" oninput="updatePayslip()">
+                    </div>
+                    <div class="input-group">
+                        <label>Employee ID</label>
+                        <input type="text" id="empId" value="CDS-102" oninput="updatePayslip()">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Designation</label>
+                        <input type="text" id="empDesignation" value="Operations Manager" oninput="updatePayslip()">
+                    </div>
+                    <div class="input-group">
+                        <label>Month & Year</label>
+                        <input type="text" id="payMonth" value="August 2026" oninput="updatePayslip()">
+                    </div>
+                </div>
+
+                <h3>3. Earnings & Deductions (INR)</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Basic Salary</label>
+                        <input type="number" id="basicSalary" value="25000" oninput="updatePayslip()">
+                    </div>
+                    <div class="input-group">
+                        <label>HRA (House Rent Allowance)</label>
+                        <input type="number" id="hra" value="5000" oninput="updatePayslip()">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Conveyance / Allowances</label>
+                        <input type="number" id="allowance" value="2000" oninput="updatePayslip()">
+                    </div>
+                    <div class="input-group">
+                        <label>Provident Fund (PF Deduction)</label>
+                        <input type="number" id="pf" value="1800" oninput="updatePayslip()">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Professional Tax / TDS Deduction</label>
+                    <input type="number" id="tax" value="200" oninput="updatePayslip()">
+                </div>
+            </div>
+
+            <!-- Right Preview Panel -->
+            <div class="preview-panel">
+                <div id="payslipSheet" class="payslip-sheet">
+                    <div class="slip-header">
+                        <div class="slip-company" id="prevCompName">Chouhan Digital Services</div>
+                        <div id="prevCompAddress" style="color:#555; font-size:11px;">Main Bazaar, Rohtak, Haryana</div>
+                        <div style="margin-top: 5px; font-weight: bold; font-size: 13px;">SALARY SLIP FOR THE MONTH OF <span id="prevPayMonth">August 2026</span></div>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div>
+                            <div><strong>Emp Name:</strong> <span id="prevEmpName">Amit Kumar</span></div>
+                            <div><strong>Emp ID:</strong> <span id="prevEmpId">CDS-102</span></div>
+                        </div>
+                        <div>
+                            <div><strong>Designation:</strong> <span id="prevEmpDesignation">Operations Manager</span></div>
+                            <div><strong>Pay Status:</strong> <span style="color:#28a745; font-weight:bold;">PAID</span></div>
+                        </div>
+                    </div>
+
+                    <table class="earnings-deductions-table">
+                        <thead>
+                            <tr>
+                                <th>Earnings</th>
+                                <th style="text-align: right;">Amount (₹)</th>
+                                <th>Deductions</th>
+                                <th style="text-align: right;">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basic Salary</td>
+                                <td style="text-align: right;" id="prevBasic">₹ 25,000.00</td>
+                                <td>Provident Fund (PF)</td>
+                                <td style="text-align: right;" id="prevPf">₹ 1,800.00</td>
+                            </tr>
+                            <tr>
+                                <td>HRA</td>
+                                <td style="text-align: right;" id="prevHra">₹ 5,000.00</td>
+                                <td>Professional Tax / TDS</td>
+                                <td style="text-align: right;" id="prevTax">₹ 200.00</td>
+                            </tr>
+                            <tr>
+                                <td>Allowances</td>
+                                <td style="text-align: right;" id="prevAllowance">₹ 2,000.00</td>
+                                <td>-</td>
+                                <td style="text-align: right;">₹ 0.00</td>
+                            </tr>
+                            <tr style="font-weight: bold; background: #fafafa;">
+                                <td>Gross Earnings</td>
+                                <td style="text-align: right;" id="prevGross">₹ 32,000.00</td>
+                                <td>Total Deductions</td>
+                                <td style="text-align: right;" id="prevTotalDed">₹ 2,000.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="net-pay-box">
+                        NET PAYABLE AMOUNT: <span id="prevNetPay">₹ 30,000.00</span>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:30px; font-size:11px; color:#555;">
+                        <div>* Note: This is a system generated payslip and does not require a physical signature.</div>
+                        <div style="text-align:center;">
+                            <br><br>
+                            <strong>Authorized Signatory</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save Payslip as PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updatePayslip() {
+            document.getElementById('prevCompName').innerText = document.getElementById('compName').value;
+            document.getElementById('prevCompAddress').innerText = document.getElementById('compAddress').value;
+            document.getElementById('prevEmpName').innerText = document.getElementById('empName').value;
+            document.getElementById('prevEmpId').innerText = document.getElementById('empId').value;
+            document.getElementById('prevEmpDesignation').innerText = document.getElementById('empDesignation').value;
+            document.getElementById('prevPayMonth').innerText = document.getElementById('payMonth').value;
+
+            const basic = parseFloat(document.getElementById('basicSalary').value) || 0;
+            const hra = parseFloat(document.getElementById('hra').value) || 0;
+            const allowance = parseFloat(document.getElementById('allowance').value) || 0;
+            const pf = parseFloat(document.getElementById('pf').value) || 0;
+            const tax = parseFloat(document.getElementById('tax').value) || 0;
+
+            const gross = basic + hra + allowance;
+            const totalDed = pf + tax;
+            const netPay = gross - totalDed;
+
+            document.getElementById('prevBasic').innerText = `₹ ${basic.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevHra').innerText = `₹ ${hra.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevAllowance').innerText = `₹ ${allowance.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevPf').innerText = `₹ ${pf.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevTax').innerText = `₹ ${tax.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+            document.getElementById('prevGross').innerText = `₹ ${gross.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevTotalDed').innerText = `₹ ${totalDed.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            document.getElementById('prevNetPay').innerText = `₹ ${netPay.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+        }
+
+        // Initial run
+        updatePayslip();
+    </script>
+</body>
+</html>

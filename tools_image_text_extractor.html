@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Text Extractor (OCR) - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tesseract.js OCR Library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Workspace Grid */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Panels */
+        .panel {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel h3 {
+            font-size: 15px;
+            color: #a81c42;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .image-preview-box {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            background: #fafafa;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .image-preview-box img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 4px;
+        }
+
+        textarea.output-text {
+            width: 100%;
+            height: 280px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+            resize: vertical;
+            background: #fafafa;
+        }
+
+        .btn-action {
+            background-color: #a81c42;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-action:hover {
+            background-color: #871433;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .status-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-file-lines"></i> Image Text Extractor (OCR)</h1>
+            <p>Extract editable text from scanned documents, certificates, and images instantly in your browser.</p>
+        </div>
+
+        <div class="workspace">
+            <!-- Left Panel: Upload & Preview -->
+            <div class="panel">
+                <h3>1. Upload Image</h3>
+                <div class="input-group">
+                    <label>Select Image (JPG / PNG)</label>
+                    <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
+                </div>
+
+                <div class="input-group">
+                    <label>OCR Language</label>
+                    <select id="ocrLang">
+                        <option value="eng">English</option>
+                        <option value="hin">Hindi</option>
+                        <option value="eng+hin">English + Hindi</option>
+                    </select>
+                </div>
+
+                <div class="image-preview-box" id="previewContainer">
+                    <span style="color: #888; font-size: 13px;"><i class="fa-regular fa-image" style="font-size: 24px; display:block; margin-bottom:5px;"></i> Image preview will appear here</span>
+                </div>
+
+                <button class="btn-action" id="extractBtn" onclick="extractText()" style="display: none;"><i class="fa-solid fa-wand-magic-sparkles"></i> Extract Text</button>
+                <div id="statusMsg" class="status-text"></div>
+            </div>
+
+            <!-- Right Panel: Extracted Output -->
+            <div class="panel">
+                <h3>2. Extracted Text Output</h3>
+                <div class="input-group" style="flex: 1;">
+                    <label>Editable Result</label>
+                    <textarea id="outputText" class="output-text" placeholder="Extracted text will appear here..."></textarea>
+                </div>
+
+                <button class="btn-action btn-success" onclick="copyText()"><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFile = null;
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            selectedFile = file;
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Uploaded Image">`;
+            document.getElementById('extractBtn').style.display = 'block';
+            document.getElementById('outputText.value') = '';
+        }
+
+        async function extractText() {
+            if (!selectedFile) {
+                alert('Please upload an image first.');
+                return;
+            }
+
+            const lang = document.getElementById('ocrLang').value;
+            const statusMsg = document.getElementById('statusMsg');
+            const outputText = document.getElementById('outputText');
+
+            statusMsg.innerText = 'Processing OCR... Please wait.';
+            outputText.value = '';
+
+            try {
+                const worker = await Tesseract.createWorker(lang);
+                const ret = await worker.recognize(selectedFile);
+                
+                outputText.value = ret.data.text;
+                statusMsg.innerText = 'Text extraction completed successfully!';
+                await worker.terminate();
+            } catch (error) {
+                console.error(error);
+                statusMsg.innerText = 'Error during text extraction. Please try another image.';
+            }
+        }
+
+        function copyText() {
+            const text = document.getElementById('outputText');
+            text.select();
+            text.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(text.value);
+            alert('Extracted text copied to clipboard!');
+        }
+    </script>
+</body>
+</html>

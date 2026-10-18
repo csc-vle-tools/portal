@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo & Signature Resizer - Smart CSC Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #a81c42;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #a81c42;
+        }
+
+        .header h1 {
+            color: #a81c42;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Workspace Grid */
+        .workspace {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Control Panel */
+        .form-panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .form-panel h3 {
+            font-size: 15px;
+            color: #a81c42;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 6px;
+            margin-top: 15px;
+        }
+
+        .form-panel h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 4px;
+        }
+
+        input[type="file"], input[type="number"], select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .btn-action {
+            background-color: #a81c42;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background-color: #871433;
+        }
+
+        .btn-download {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-download:hover {
+            background-color: #218838;
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .preview-box {
+            border: 2px dashed #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fafafa;
+            margin-bottom: 15px;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 350px;
+            display: block;
+        }
+
+        .info-badge {
+            background: #fdf3f5;
+            border: 1px solid #f2c2cd;
+            color: #a81c42;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <div class="header">
+            <h1><i class="fa-solid fa-crop-simple"></i> Photo & Signature Resizer</h1>
+            <p>Resize and compress photos & signatures to exact dimensions and KB required for Sarkari exam forms.</p>
+        </div>
+
+        <div class="workspace">
+            <!-- Left Form Panel -->
+            <div class="form-panel">
+                <h3>1. Select Image</h3>
+                <div class="input-group">
+                    <label>Upload Image (JPG / PNG)</label>
+                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
+                </div>
+
+                <h3>2. Exam Presets (Optional)</h3>
+                <div class="input-group">
+                    <label>Choose Preset</label>
+                    <select id="presetSelect" onchange="applyPreset()">
+                        <option value="custom">Custom Dimensions</option>
+                        <option value="ssc_photo">SSC Photo (3.5 cm x 4.5 cm / 20KB - 50KB)</option>
+                        <option value="ssc_sign">SSC Signature (4.0 cm x 2.0 cm / 10KB - 20KB)</option>
+                        <option value="upsc_photo">UPSC Photo (350px x 350px / 20KB - 300KB)</option>
+                        <option value="ibps_photo">IBPS Photo (200px x 230px / 20KB - 50KB)</option>
+                        <option value="ibps_sign">IBPS Signature (140px x 60px / 10KB - 20KB)</option>
+                    </select>
+                </div>
+
+                <h3>3. Custom Dimensions</h3>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Width (px)</label>
+                        <input type="number" id="targetWidth" value="350" oninput="resizeImage()">
+                    </div>
+                    <div class="input-group">
+                        <label>Height (px)</label>
+                        <input type="number" id="targetHeight" value="450" oninput="resizeImage()">
+                    </div>
+                </div>
+
+                <h3>4. Target File Size (KB)</h3>
+                <div class="input-group">
+                    <label>Max Size (KB)</label>
+                    <input type="number" id="maxKb" value="50" oninput="resizeImage()">
+                </div>
+
+                <button class="btn-action" onclick="resizeImage()"><i class="fa-solid fa-gear"></i> Process Image</button>
+            </div>
+
+            <!-- Right Preview Panel -->
+            <div class="preview-panel">
+                <div id="infoBadge" class="info-badge" style="display: none;">
+                    Dimensions: <span id="outDim">-</span> | Size: <span id="outSize">-</span>
+                </div>
+
+                <div class="preview-box">
+                    <img id="imagePreview" src="https://via.placeholder.com/350x450?text=Upload+Photo+or+Signature" alt="Preview">
+                </div>
+
+                <a id="downloadBtn" download="resized_image.jpg" class="btn-download" style="display: none;"><i class="fa-solid fa-download"></i> Download Resized Image</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden canvas for image processing -->
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <script>
+        let rawImage = null;
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                rawImage = new Image();
+                rawImage.onload = function() {
+                    resizeImage();
+                };
+                rawImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applyPreset() {
+            const preset = document.getElementById('presetSelect').value;
+            const widthInput = document.getElementById('targetWidth');
+            const heightInput = document.getElementById('targetHeight');
+            const kbInput = document.getElementById('maxKb');
+
+            if (preset === 'ssc_photo') {
+                widthInput.value = 350;
+                heightInput.value = 450;
+                kbInput.value = 50;
+            } else if (preset === 'ssc_sign') {
+                widthInput.value = 400;
+                heightInput.value = 200;
+                kbInput.value = 20;
+            } else if (preset === 'upsc_photo') {
+                widthInput.value = 350;
+                heightInput.value = 350;
+                kbInput.value = 300;
+            } else if (preset === 'ibps_photo') {
+                widthInput.value = 200;
+                heightInput.value = 230;
+                kbInput.value = 50;
+            } else if (preset === 'ibps_sign') {
+                widthInput.value = 140;
+                heightInput.value = 60;
+                kbInput.value = 20;
+            }
+
+            if (rawImage) {
+                resizeImage();
+            }
+        }
+
+        function resizeImage() {
+            if (!rawImage) return;
+
+            const width = parseInt(document.getElementById('targetWidth').value) || 300;
+            const height = parseInt(document.getElementById('targetHeight').value) || 300;
+            const maxKb = parseInt(document.getElementById('maxKb').value) || 50;
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx.drawImage(rawImage, 0, 0, width, height);
+
+            let quality = 0.92;
+            let dataUrl = canvas.toDataURL('image/jpeg', quality);
+
+            // Compress until file size is under target KB
+            while (dataUrl.length * (3/4) / 1024 > maxKb && quality > 0.1) {
+                quality -= 0.05;
+                dataUrl = canvas.toDataURL('image/jpeg', quality);
+            }
+
+            const finalSizeKb = (dataUrl.length * (3/4) / 1024).toFixed(2);
+
+            const previewImg = document.getElementById('imagePreview');
+            previewImg.src = dataUrl;
+
+            document.getElementById('outDim').innerText = `${width} x ${height} px`;
+            document.getElementById('outSize').innerText = `${finalSizeKb} KB`;
+            document.getElementById('infoBadge').style.display = 'block';
+
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.href = dataUrl;
+            downloadBtn.style.display = 'inline-block';
+        }
+    </script>
+</body>
+</html>
