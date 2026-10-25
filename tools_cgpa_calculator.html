@@ -1,218 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CGPA to Percentage Calculator - Smart CSC Tools</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 15px;
-            color: #a81c42;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-top: 4px solid #a81c42;
-        }
-
-        .header h1 {
-            color: #a81c42;
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .calc-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .calc-card h3 {
-            font-size: 16px;
-            color: #a81c42;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 8px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 5px;
-        }
-
-        input[type="number"] {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .btn-action {
-            background-color: #a81c42;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .btn-action:hover {
-            background-color: #871433;
-        }
-
-        .result-box {
-            margin-top: 20px;
-            background: #fdf3f5;
-            border: 1px solid #f2c2cd;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            display: none;
-        }
-
-        .result-box h4 {
-            color: #a81c42;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .result-item {
-            background: #fff;
-            padding: 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-
-        .result-item span {
-            display: block;
-            font-size: 20px;
-            font-weight: bold;
-            color: #222;
-        }
-
-        .result-item label {
-            font-size: 11px;
-            color: #666;
-            margin-top: 3px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CGPA Calculator | CSC VLE TOOLS</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/portal.css"><link rel="stylesheet" href="assets/css/csc-system.css">
+  <meta name="description" content="CGPA and SGPA to percentage and back. Free online tool for CSC &amp; VLE centres, cyber cafes and students.">
+  <meta name="keywords" content="CGPA Calculator, online calculator, EMI calculator, age calculator, percentage calculator, CSC VLE tools, CSC center tools, VLE tools, free online tool, Rohtak Haryana">
+  <meta name="author" content="CSC VLE TOOLS">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_cgpa_calculator.html">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="CSC VLE TOOLS"><meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="CGPA Calculator | CSC VLE TOOLS"><meta property="og:description" content="CGPA and SGPA to percentage and back. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta property="og:url" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_cgpa_calculator.html"><meta property="og:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="CGPA Calculator | CSC VLE TOOLS"><meta name="twitter:description" content="CGPA and SGPA to percentage and back. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta name="twitter:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="geo.region" content="IN-HR"><meta name="geo.placename" content="Rohtak, Haryana">
+  <meta name="theme-color" content="#1a3fa6">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "CGPA Calculator", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_cgpa_calculator.html", "description": "CGPA and SGPA to percentage and back. Free online tool for CSC & VLE centres, cyber cafes and students.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "inLanguage": "en-IN", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@type": "Organization", "name": "CSC VLE TOOLS", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}, {"@type": "ListItem", "position": 2, "name": "CGPA Calculator", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_cgpa_calculator.html"}]}</script>
 </head>
 <body>
-
-    <div class="container">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-        
-        <div class="header">
-            <h1><i class="fa-solid fa-graduation-cap"></i> CGPA & Percentage Calculator</h1>
-            <p>Convert your cumulative grade point average (CGPA) into accurate percentage scores instantly.</p>
-        </div>
-
-        <div class="calc-card">
-            <h3>Enter Your CGPA Details</h3>
-            <div class="input-group">
-                <label>Overall CGPA (e.g., 8.25)</label>
-                <input type="number" id="cgpaInput" step="0.01" max="10" placeholder="Enter CGPA out of 10">
-            </div>
-
-            <div class="input-group">
-                <label>University Formula (Multiplier)</label>
-                <select id="formulaMultiplier" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; font-size:14px;">
-                    <option value="9.5">Multiply by 9.5 (Standard CBSE / AICTE)</option>
-                    <option value="10">Multiply by 10 (Direct Percentage)</option>
-                </select>
-            </div>
-
-            <button class="btn-action" onclick="calculatePercentage()"><i class="fa-solid fa-calculator"></i> Convert to Percentage</button>
-
-            <div id="resultArea" class="result-box">
-                <h4>Calculation Result</h4>
-                <div class="result-grid">
-                    <div class="result-item">
-                        <span id="resCgpa">0.00</span>
-                        <label>Entered CGPA</label>
-                    </div>
-                    <div class="result-item">
-                        <span id="resPercentage">0.00%</span>
-                        <label>Equivalent Percentage</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header"></header>
+  <main id="main">
+    <div class="page-head no-print">
+      <div class="crumbs"><a href="index.html">Home</a> / CGPA Calculator</div>
+      <h1>CGPA Calculator</h1>
+      <p>CGPA and SGPA to percentage and back.</p>
     </div>
+    <div id="tool-root"><noscript>This tool needs JavaScript. Please turn it on in your browser.</noscript></div>
+  </main>
+    <section class="seo-about" aria-labelledby="about-tool"><div class="box">
+    <h2 id="about-tool">About CGPA Calculator</h2>
+    <p>CGPA and SGPA to percentage and back. CGPA Calculator is a free online tool on CSC VLE TOOLS, made for CSC and VLE centres, cyber cafes, students and job seekers.</p>
+    <ul><li>Free to use, with no sign-up or login</li><li>Runs in your browser, so your files are not uploaded to our servers</li><li>Works on mobile, tablet and desktop</li></ul>
+    <p>Please check the final result against the latest official instructions before you submit or print it. See our <a href="disclaimer.html">disclaimer</a>.</p>
+    <h3 style="margin:16px 0 10px;color:var(--brand);font-size:1rem">More in Calculators</h3><div class="rel"><a href="tools_age_calculator.html">Age Calculator</a><a href="tools_date_calculator.html">Date Calculator</a><a href="tools_percentage_calculator.html">Percentage Calculator</a><a href="tools_loan_emi_calculator.html">Loan EMI Calculator</a><a href="tools_gold_silver_rate.html">Gold &amp; Silver Value Calculator</a></div>
+  </div></section>
+  <footer id="site-footer"></footer>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/tools-calc.js"></script>
+  <script>CSC.mount('cgpa_calculator');</script>
 
-    <script>
-        function calculatePercentage() {
-            const cgpa = parseFloat(document.getElementById('cgpaInput').value);
-            const multiplier = parseFloat(document.getElementById('formulaMultiplier').value);
-
-            if (isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
-                alert('Please enter a valid CGPA between 0 and 10.');
-                return;
-            }
-
-            const percentage = cgpa * multiplier;
-
-            document.getElementById('resCgpa').innerText = cgpa.toFixed(2);
-            document.getElementById('resPercentage').innerText = percentage.toFixed(2) + '%';
-            document.getElementById('resultArea').style.display = 'block';
-        }
-    </script>
+  <script src="assets/js/demo-mode.js"></script>
 </body>
 </html>

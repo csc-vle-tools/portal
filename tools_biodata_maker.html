@@ -1,248 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marriage Biodata Maker - CSC VLE Tools</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f0f2f5; padding: 20px; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 420px 1fr; gap: 20px; }
-        .form-panel { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-height: 90vh; overflow-y: auto; }
-        .preview-panel { background: #e0e0e0; padding: 20px; border-radius: 8px; display: flex; justify-content: center; align-items: flex-start; overflow-x: auto; }
-        h2 { margin-bottom: 12px; color: #1a73e8; font-size: 1.2rem; border-bottom: 2px solid #e8f0fe; padding-bottom: 6px; }
-        
-        .section-box { background: #f8f9fa; border: 1px solid #e0e0e0; padding: 12px; border-radius: 6px; margin-bottom: 12px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 0.95rem; color: #8b0000; margin-bottom: 8px; }
-        
-        .form-group { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .form-group label { flex: 1; font-size: 0.8rem; font-weight: 600; color: #555; }
-        .form-group input, .form-group select { flex: 2; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.85rem; }
-        
-        .toggle-chk { width: 16px; height: 16px; cursor: pointer; }
-        
-        .btn { background: #1a73e8; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; margin-right: 6px; margin-top: 8px; width: 100%; }
-        .btn:hover { background: #1557b0; }
-        .btn-add { background: #34a853; }
-        .btn-add:hover { background: #2d8e47; }
-        .btn-print { background: #d93025; font-size: 1rem; }
-        .btn-print:hover { background: #a50e0e; }
-
-        /* A4 Page Formatting */
-        .a4-sheet {
-            width: 210mm;
-            min-height: 297mm;
-            max-height: 297mm;
-            padding: 15mm 18mm;
-            background: #fff;
-            position: relative;
-            overflow: hidden;
-            box-sizing: border-box;
-            box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        }
-
-        /* Border Designs */
-        .border-classic { border: 10px double #8b0000; outline: 2px solid #8b0000; outline-offset: -6px; }
-        .border-gold { border: 8px inset #d4af37; outline: 2px solid #b38f28; outline-offset: -4px; }
-        .border-cyan { border: 6px solid #00c853; box-shadow: inset 0 0 10px rgba(0,200,83,0.2); }
-        .border-minimal { border: 2px solid #333; }
-
-        .biodata-header { text-align: center; margin-bottom: 15px; }
-        .biodata-header h1 { font-size: 1.6rem; color: #8b0000; text-transform: uppercase; letter-spacing: 1px; }
-        .biodata-header h3 { font-size: 1.2rem; color: #333; margin-top: 3px; letter-spacing: 0.5px; }
-
-        .preview-section-title { background: #fdf3f3; color: #8b0000; padding: 4px 10px; font-weight: bold; border-left: 4px solid #8b0000; margin: 12px 0 8px 0; font-size: 0.95rem; }
-        .info-grid { display: grid; grid-template-columns: 140px 1fr; row-gap: 6px; font-size: 0.9rem; line-height: 1.3; }
-        .info-label { font-weight: 600; color: #444; }
-
-        /* Print Override */
-        @media print {
-            body * { visibility: hidden; }
-            .preview-panel, .a4-sheet, .a4-sheet * { visibility: visible; }
-            body { padding: 0; background: none; }
-            .form-panel { display: none; }
-            .preview-panel { padding: 0; background: none; display: block; }
-            .a4-sheet {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 210mm !important;
-                height: 297mm !important;
-                max-height: 297mm !important;
-                page-break-after: avoid !important;
-                page-break-inside: avoid !important;
-                margin: 0 !important;
-                box-shadow: none;
-            }
-            @page { size: A4 portrait; margin: 0; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marriage Biodata Maker | CSC VLE TOOLS</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/portal.css"><link rel="stylesheet" href="assets/css/csc-system.css">
+  <meta name="description" content="Create a biodata with photo and print it. Free online tool for CSC &amp; VLE centres, cyber cafes and students.">
+  <meta name="keywords" content="Marriage Biodata Maker, resume maker, biodata, cover letter, Haryana resume, document format, CSC VLE tools, CSC center tools, VLE tools, free online tool, Rohtak Haryana">
+  <meta name="author" content="CSC VLE TOOLS">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_biodata_maker.html">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="CSC VLE TOOLS"><meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="Marriage Biodata Maker | CSC VLE TOOLS"><meta property="og:description" content="Create a biodata with photo and print it. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta property="og:url" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_biodata_maker.html"><meta property="og:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Marriage Biodata Maker | CSC VLE TOOLS"><meta name="twitter:description" content="Create a biodata with photo and print it. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta name="twitter:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="geo.region" content="IN-HR"><meta name="geo.placename" content="Rohtak, Haryana">
+  <meta name="theme-color" content="#1a3fa6">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Marriage Biodata Maker", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_biodata_maker.html", "description": "Create a biodata with photo and print it. Free online tool for CSC & VLE centres, cyber cafes and students.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "inLanguage": "en-IN", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@type": "Organization", "name": "CSC VLE TOOLS", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}, {"@type": "ListItem", "position": 2, "name": "Marriage Biodata Maker", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_biodata_maker.html"}]}</script>
 </head>
 <body>
-
-<div class="container">
-    <!-- Left Configuration Panel -->
-    <div class="form-panel">
-        <h2>Marriage Biodata Generator</h2>
-        
-        <div class="form-group" style="margin-bottom: 12px;">
-            <label style="flex:1;">Border Style</label>
-            <select id="borderStyle" style="flex:2;" onchange="updateStyle()">
-                <option value="border-classic">Classic Royal Maroon</option>
-                <option value="border-gold">Royal Gold</option>
-                <option value="border-cyan">Crystal Emerald Green</option>
-                <option value="border-minimal">Modern Minimal</option>
-            </select>
-        </div>
-
-        <!-- Personal Details -->
-        <div class="section-box">
-            <div class="section-header">
-                <span>Personal Details</span>
-                <input type="checkbox" id="sec_personal" class="toggle-chk" checked onchange="render()">
-            </div>
-            <div class="form-group"><input type="checkbox" id="chk_name" class="toggle-chk" checked onchange="render()"><label>Full Name</label><input type="text" id="val_name" value="Rahul Sharma" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_dob" class="toggle-chk" checked onchange="render()"><label>Date of Birth</label><input type="text" id="val_dob" value="15 August 1995" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_tob" class="toggle-chk" checked onchange="render()"><label>Time of Birth</label><input type="text" id="val_tob" value="08:45 AM" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_pob" class="toggle-chk" checked onchange="render()"><label>Place of Birth</label><input type="text" id="val_pob" value="Rohtak, Haryana" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_height" class="toggle-chk" checked onchange="render()"><label>Height</label><input type="text" id="val_height" value="5 ft 10 in" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_caste" class="toggle-chk" checked onchange="render()"><label>Caste / Gotra</label><input type="text" id="val_caste" value="Brahmin (Vashisht)" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_edu" class="toggle-chk" checked onchange="render()"><label>Education</label><input type="text" id="val_edu" value="B.Tech Computer Science" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_job" class="toggle-chk" checked onchange="render()"><label>Occupation</label><input type="text" id="val_job" value="Software Engineer (12 LPA)" oninput="render()"></div>
-        </div>
-
-        <!-- Family Details -->
-        <div class="section-box">
-            <div class="section-header">
-                <span>Family Details</span>
-                <input type="checkbox" id="sec_family" class="toggle-chk" checked onchange="render()">
-            </div>
-            <div class="form-group"><input type="checkbox" id="chk_fName" class="toggle-chk" checked onchange="render()"><label>Father's Name</label><input type="text" id="val_fName" value="Sh. Suresh Sharma" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_fOcc" class="toggle-chk" checked onchange="render()"><label>Father's Occ.</label><input type="text" id="val_fOcc" value="Government Officer (Retd.)" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_mName" class="toggle-chk" checked onchange="render()"><label>Mother's Name</label><input type="text" id="val_mName" value="Smt. Anita Sharma" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_mOcc" class="toggle-chk" checked onchange="render()"><label>Mother's Occ.</label><input type="text" id="val_mOcc" value="Homemaker" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_siblings" class="toggle-chk" checked onchange="render()"><label>Siblings</label><input type="text" id="val_siblings" value="1 Brother (Elder, Married)" oninput="render()"></div>
-        </div>
-
-        <!-- Contact & Horoscope -->
-        <div class="section-box">
-            <div class="section-header">
-                <span>Contact & Horoscope</span>
-                <input type="checkbox" id="sec_contact" class="toggle-chk" checked onchange="render()">
-            </div>
-            <div class="form-group"><input type="checkbox" id="chk_rashi" class="toggle-chk" checked onchange="render()"><label>Rashi / Nakshatra</label><input type="text" id="val_rashi" value="Tula / Swati" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_phone" class="toggle-chk" checked onchange="render()"><label>Contact No.</label><input type="text" id="val_phone" value="+91 98765 43210" oninput="render()"></div>
-            <div class="form-group"><input type="checkbox" id="chk_addr" class="toggle-chk" checked onchange="render()"><label>Address</label><input type="text" id="val_addr" value="H.No 123, Sector 14, Rohtak" oninput="render()"></div>
-        </div>
-
-        <!-- Custom Fields -->
-        <div class="section-box">
-            <div class="section-header">Custom Dynamic Fields</div>
-            <div id="customFieldsContainer"></div>
-            <button class="btn btn-add" onclick="addCustomField()"><i class="fa fa-plus"></i> Add Custom Field</button>
-        </div>
-
-        <button class="btn btn-print" onclick="window.print()"><i class="fa fa-print"></i> Print A4 Biodata (1 Page)</button>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header"></header>
+  <main id="main">
+    <div class="page-head no-print">
+      <div class="crumbs"><a href="index.html">Home</a> / Marriage Biodata Maker</div>
+      <h1>Marriage Biodata Maker</h1>
+      <p>Create a biodata with photo and print it.</p>
     </div>
+    <div id="tool-root"><noscript>This tool needs JavaScript. Please turn it on in your browser.</noscript></div>
+  </main>
+    <section class="seo-about" aria-labelledby="about-tool"><div class="box">
+    <h2 id="about-tool">About Marriage Biodata Maker</h2>
+    <p>Create a biodata with photo and print it. Marriage Biodata Maker is a free online tool on CSC VLE TOOLS, made for CSC and VLE centres, cyber cafes, students and job seekers.</p>
+    <ul><li>Free to use, with no sign-up or login</li><li>Runs in your browser, so your files are not uploaded to our servers</li><li>Works on mobile, tablet and desktop</li></ul>
+    <p>Please check the final result against the latest official instructions before you submit or print it. See our <a href="disclaimer.html">disclaimer</a>.</p>
+    <h3 style="margin:16px 0 10px;color:var(--brand);font-size:1rem">More in Resume &amp; Documents</h3><div class="rel"><a href="haryana-resume-generator.html">Resume Builder</a><a href="tools_cover_letter_generator.html">Cover Letter Generator</a></div>
+  </div></section>
+  <footer id="site-footer"></footer>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/tools-docs.js"></script>
+  <script>CSC.mount('biodata_maker');</script>
 
-    <!-- Right Live Preview -->
-    <div class="preview-panel">
-        <div class="a4-sheet border-classic" id="biodataSheet">
-            <div class="biodata-header">
-                <h1>|| Shree Ganeshay Namah ||</h1>
-                <h3>MARRIAGE BIODATA</h3>
-            </div>
-
-            <div id="previewContent"></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    let customCount = 0;
-
-    function render() {
-        const container = document.getElementById('previewContent');
-        container.innerHTML = '';
-
-        // Personal Section
-        if (document.getElementById('sec_personal').checked) {
-            let html = '<div class="preview-section-title">Personal Details</div><div class="info-grid">';
-            if (chk('chk_name')) html += gridRow('Name', val('val_name'));
-            if (chk('chk_dob')) html += gridRow('Date of Birth', val('val_dob'));
-            if (chk('chk_tob')) html += gridRow('Time of Birth', val('val_tob'));
-            if (chk('chk_pob')) html += gridRow('Place of Birth', val('val_pob'));
-            if (chk('chk_height')) html += gridRow('Height', val('val_height'));
-            if (chk('chk_caste')) html += gridRow('Caste / Gotra', val('val_caste'));
-            if (chk('chk_edu')) html += gridRow('Education', val('val_edu'));
-            if (chk('chk_job')) html += gridRow('Occupation', val('val_job'));
-            html += '</div>';
-            container.innerHTML += html;
-        }
-
-        // Family Section
-        if (document.getElementById('sec_family').checked) {
-            let html = '<div class="preview-section-title">Family Details</div><div class="info-grid">';
-            if (chk('chk_fName')) html += gridRow("Father's Name", val('val_fName'));
-            if (chk('chk_fOcc')) html += gridRow("Father's Occ.", val('val_fOcc'));
-            if (chk('chk_mName')) html += gridRow("Mother's Name", val('val_mName'));
-            if (chk('chk_mOcc')) html += gridRow("Mother's Occ.", val('val_mOcc'));
-            if (chk('chk_siblings')) html += gridRow('Siblings', val('val_siblings'));
-            html += '</div>';
-            container.innerHTML += html;
-        }
-
-        // Contact Section
-        if (document.getElementById('sec_contact').checked) {
-            let html = '<div class="preview-section-title">Contact & Horoscope</div><div class="info-grid">';
-            if (chk('chk_rashi')) html += gridRow('Rashi / Nakshatra', val('val_rashi'));
-            if (chk('chk_phone')) html += gridRow('Contact No.', val('val_phone'));
-            if (chk('chk_addr')) html += gridRow('Address', val('val_addr'));
-            html += '</div>';
-            container.innerHTML += html;
-        }
-
-        // Custom Fields
-        let customHtml = '';
-        for (let i = 1; i <= customCount; i++) {
-            const labelEl = document.getElementById('cLabel_' + i);
-            const valEl = document.getElementById('cVal_' + i);
-            const chkEl = document.getElementById('cChk_' + i);
-            if (labelEl && valEl && chkEl && chkEl.checked && labelEl.value) {
-                customHtml += gridRow(labelEl.value, valEl.value);
-            }
-        }
-        if (customHtml) {
-            container.innerHTML += '<div class="preview-section-title">Additional Details</div><div class="info-grid">' + customHtml + '</div>';
-        }
-    }
-
-    function chk(id) { return document.getElementById(id) && document.getElementById(id).checked; }
-    function val(id) { return document.getElementById(id) ? document.getElementById(id).value : ''; }
-    function gridRow(label, value) { return `<div class="info-label">${label}:</div><div>${value}</div>`; }
-
-    function updateStyle() {
-        document.getElementById('biodataSheet').className = 'a4-sheet ' + document.getElementById('borderStyle').value;
-    }
-
-    function addCustomField() {
-        customCount++;
-        const div = document.createElement('div');
-        div.className = 'form-group';
-        div.id = 'cGroup_' + customCount;
-        div.innerHTML = `
-            <input type="checkbox" id="cChk_${customCount}" class="toggle-chk" checked onchange="render()">
-            <input type="text" placeholder="Field Name" id="cLabel_${customCount}" style="flex:1;" oninput="render()">
-            <input type="text" placeholder="Value" id="cVal_${customCount}" style="flex:1;" oninput="render()">
-        `;
-        document.getElementById('customFieldsContainer').appendChild(div);
-    }
-
-    // Initial render
-    render();
-</script>
-
+  <script src="assets/js/demo-mode.js"></script>
 </body>
 </html>

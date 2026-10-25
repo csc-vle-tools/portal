@@ -1,124 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>PAN & ID Card Print Utility - CSC VLE Tools</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root{--bg:#f4f6f9;--card:#fff;--tx:#1b2430;--mu:#5d6b7a;--bd:#d5dce4;--pr:#7c3aed;--pr2:#f5f3ff;--er:#b3261e;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
-header{background:var(--pr);color:var(--on);padding:14px 16px;text-align:center}
-header h1{margin:0;font-size:1.2rem}header p{margin:2px 0 8px;font-size:.82rem;opacity:.9}
-.lg button{background:transparent;color:var(--on);border:1px solid var(--on);padding:5px 14px;margin:0 2px;border-radius:16px;cursor:pointer;font:inherit;font-size:.82rem}
-.lg button.a{background:var(--on);color:var(--pr)}
-main{max-width:900px;margin:0 auto;padding:14px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px}
-h2.t{font-size:1.0rem;margin:0 0 12px;color:var(--pr)}
-.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-label{display:block;font-size:.8rem;color:var(--mu);margin-bottom:3px;font-weight:600}
-input,select{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
-.btn{background:var(--pr);color:var(--on);border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:.92rem}
-.btn.s{background:var(--card);color:var(--pr);border:1px solid var(--pr)}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-#out{display:none}
-
-.paper{background:#fff;color:#111;border:1px solid var(--bd);border-radius:6px;padding:15mm;width:210mm;min-height:297mm;margin:0 auto;display:flex;flex-direction:column;gap:15px;align-items:center;}
-.id-card-box{width:86mm;height:54mm;border:1px dashed #666;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f9f9f9;}
-.id-card-box img{width:100%;height:100%;object-fit:contain;}
-
-@page{size:A4;margin:0}
-@media print{body{background:#fff}header,#form,.noprint{display:none!important}main{padding:0}.paper{border:0;padding:15mm;width:210mm;height:297mm;position:absolute;left:0;top:0;page-break-after:avoid}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAN &amp; Aadhaar Print | CSC VLE TOOLS</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/portal.css"><link rel="stylesheet" href="assets/css/csc-system.css">
+  <meta name="description" content="Print PAN, Aadhaar and similar cards at actual size, front and back. Free online tool for CSC &amp; VLE centres, cyber cafes and students.">
+  <meta name="keywords" content="PAN &amp; Aadhaar Print, ID card print, PVC card print, PAN card print, Aadhaar print, passport photo sheet, CSC VLE tools, CSC center tools, VLE tools, free online tool, Rohtak Haryana">
+  <meta name="author" content="CSC VLE TOOLS">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pan_aadhaar_print.html">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="CSC VLE TOOLS"><meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="PAN &amp; Aadhaar Print | CSC VLE TOOLS"><meta property="og:description" content="Print PAN, Aadhaar and similar cards at actual size, front and back. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta property="og:url" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pan_aadhaar_print.html"><meta property="og:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="PAN &amp; Aadhaar Print | CSC VLE TOOLS"><meta name="twitter:description" content="Print PAN, Aadhaar and similar cards at actual size, front and back. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta name="twitter:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="geo.region" content="IN-HR"><meta name="geo.placename" content="Rohtak, Haryana">
+  <meta name="theme-color" content="#1a3fa6">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "PAN & Aadhaar Print", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pan_aadhaar_print.html", "description": "Print PAN, Aadhaar and similar cards at actual size, front and back. Free online tool for CSC & VLE centres, cyber cafes and students.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "inLanguage": "en-IN", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@type": "Organization", "name": "CSC VLE TOOLS", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}, {"@type": "ListItem", "position": 2, "name": "PAN & Aadhaar Print", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pan_aadhaar_print.html"}]}</script>
 </head>
 <body>
-<header>
-  <div style="display:flex; justify-content:space-between; align-items:center; max-width:900px; margin:0 auto; padding-bottom:6px;">
-    <a href="index.html" style="color:#fff; text-decoration:none; font-weight:bold; font-size:0.9rem;"><i class="fa fa-home"></i> Portal Home</a>
-    <div><h1 style="display:inline;" data-i="PAN & ID Card Print Utility|पैन व आईडी कार्ड प्रिंट यूटिलिटी"></h1></div>
-    <div style="width:90px;"></div>
-  </div>
-  <p data-i="Align and print PVC ID cards with exact dimensions|सटीक माप के साथ पीवीसी आईडी कार्ड संरेखित करें और प्रिंट करें"></p>
-  <div class="lg"><button data-l="en">English</button><button data-l="hi">हिंदी</button><button data-l="both" class="a">English + हिंदी</button></div>
-</header>
-<main>
-<div id="form">
-  <div class="card">
-    <h2 class="t">1. <span data-i="Upload Front & Back Scans|फ्रंट व बैक स्कैन अपलोड करें"></span></h2>
-    <div class="g">
-      <div>
-        <label data-i="Front Side Image|सामने का भाग (Front)"></label>
-        <input type="file" id="frontImg" accept="image/*">
-      </div>
-      <div>
-        <label data-i="Back Side Image|पीछे का भाग (Back)"></label>
-        <input type="file" id="backImg" accept="image/*">
-      </div>
-      <div>
-        <label data-i="Brightness Adjustment|ब्राइटनेस एडਜस्टमेंट"></label>
-        <input type="range" id="brightRange" min="50" max="150" value="100">
-      </div>
-      <div>
-        <label data-i="Contrast Adjustment|कंट्रास्ट एडਜस्टमेंट"></label>
-        <input type="range" id="contrastRange" min="50" max="150" value="100">
-      </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header"></header>
+  <main id="main">
+    <div class="page-head no-print">
+      <div class="crumbs"><a href="index.html">Home</a> / PAN &amp; Aadhaar Print</div>
+      <h1>PAN &amp; Aadhaar Print</h1>
+      <p>Print PAN, Aadhaar and similar cards at actual size, front and back.</p>
     </div>
-  </div>
-  <div class="row">
-    <button class="btn" id="gen" data-i="Generate Card Layout|कार्ड लेआउट पूर्वावलोकन देखें"></button>
-  </div>
-</div>
+    <div id="tool-root"><noscript>This tool needs JavaScript. Please turn it on in your browser.</noscript></div>
+  </main>
+    <section class="seo-about" aria-labelledby="about-tool"><div class="box">
+    <h2 id="about-tool">About PAN &amp; Aadhaar Print</h2>
+    <p>Print PAN, Aadhaar and similar cards at actual size, front and back. PAN &amp; Aadhaar Print is a free online tool on CSC VLE TOOLS, made for CSC and VLE centres, cyber cafes, students and job seekers.</p>
+    <ul><li>Free to use, with no sign-up or login</li><li>Runs in your browser, so your files are not uploaded to our servers</li><li>Works on mobile, tablet and desktop</li></ul>
+    <p>Please check the final result against the latest official instructions before you submit or print it. See our <a href="disclaimer.html">disclaimer</a>.</p>
+    <h3 style="margin:16px 0 10px;color:var(--brand);font-size:1rem">More in ID Card, Cards &amp; Print</h3><div class="rel"><a href="tools_admit_card_holder.html">Admit Card Holder</a><a href="tools_pvc_id_print.html">PVC ID Card Print</a><a href="tools_student_id_creator.html">Student ID Card Creator</a><a href="tools_farmer_id_maker.html">Farmer ID Card Maker</a><a href="tools_visiting_card_maker.html">Visiting Card Maker</a><a href="tools_notebook_sticker.html">Notebook Sticker Maker</a></div>
+  </div></section>
+  <footer id="site-footer"></footer>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/tools-docs.js"></script>
+  <script>CSC.mount('pan_aadhaar_print');</script>
 
-<div id="out">
-  <div class="card noprint">
-    <div class="row">
-      <button class="btn" id="pdf" data-i="📄 Save as A4 PDF|📄 A4 पीडीएफ सेव करें"></button>
-      <button class="btn s" onclick="window.print()" data-i="🖨 Print ID Cards|🖨 आईडी कार्ड प्रिंट करें"></button>
-      <button class="btn s" id="back" data-i="← Upload New Scans|← नए स्कैन अपलोड करें"></button>
-    </div>
-  </div>
-  <div class="paper" id="paper">
-    <div style="font-weight:bold; margin-bottom:5px;" data-i="Front Side Preview|फ्रंट साइड पूर्वावलोकन"></div>
-    <div class="id-card-box" id="frontBox"><span>Front Side</span></div>
-    <div style="font-weight:bold; margin:15px 0 5px 0;" data-i="Back Side Preview|बैक साइड पूर्वावलोकन"></div>
-    <div class="id-card-box" id="backBox"><span>Back Side</span></div>
-  </div>
-</div>
-</main>
-<script>
-var lang="both", $=function(id){return document.getElementById(id)}, frontData="", backData="";
-function L(s){var p=s.split("|");return p.length<2?s:(lang=="en"?p[0]:lang=="hi"?p[1]:p[0]+" / "+p[1])}
-function apply(){
-  document.querySelectorAll("[data-i]").forEach(function(e){e.textContent=L(e.dataset.i)});
-  document.querySelectorAll(".lg button").forEach(function(b){b.className=b.dataset.l==lang?"a":""});
-}
-$("frontImg").onchange = function(e){
-  let f = e.target.files[0];
-  if(f){ let r = new FileReader(); r.onload = function(evt){ frontData = evt.target.result; }; r.readAsDataURL(f); }
-};
-$("backImg").onchange = function(e){
-  let f = e.target.files[0];
-  if(f){ let r = new FileReader(); r.onload = function(evt){ backData = evt.target.result; }; r.readAsDataURL(f); }
-};
-function generate(){
-  let b = $("brightRange").value;
-  let c = $("contrastRange").value;
-  let filterStyle = `filter: brightness(${b}%) contrast(${c}%);`;
-
-  if(frontData) $("frontBox").innerHTML = `<img src="${frontData}" style="${filterStyle}">`;
-  if(backData) $("backBox").innerHTML = `<img src="${backData}" style="${filterStyle}">`;
-
-  $("form").style.display="none";
-  $("out").style.display="block";
-  window.scrollTo(0,0);
-}
-document.querySelector(".lg").addEventListener("click",function(e){var l=e.target.dataset.l;if(l){lang=l;apply();}});
-$("gen").onclick = generate;
-$("back").onclick = function(){$("out").style.display="none";$("form").style.display="block";};
-$("pdf").onclick = function(){window.print();};
-apply();
-</script>
+  <script src="assets/js/demo-mode.js"></script>
 </body>
 </html>

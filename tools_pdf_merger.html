@@ -1,307 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Merger & Image to PDF - Smart CSC Tools</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- jsPDF Library CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 15px;
-            color: #a81c42;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-top: 4px solid #a81c42;
-        }
-
-        .header h1 {
-            color: #a81c42;
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Workspace Grid */
-        .workspace {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-
-        @media (max-width: 900px) {
-            .workspace {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Control Panel */
-        .form-panel {
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .form-panel h3 {
-            font-size: 15px;
-            color: #a81c42;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 8px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 5px;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px dashed #a81c42;
-            border-radius: 6px;
-            background: #fdf3f5;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .btn-action {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .btn-action:hover {
-            background-color: #218838;
-        }
-
-        /* Preview Panel */
-        .preview-panel {
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 400px;
-        }
-
-        .thumbnail-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 20px;
-            max-height: 350px;
-            overflow-y: auto;
-        }
-
-        .thumb-card {
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 8px;
-            background: #fafafa;
-            text-align: center;
-            position: relative;
-        }
-
-        .thumb-card img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 5px;
-        }
-
-        .thumb-card span {
-            font-size: 11px;
-            color: #555;
-            display: block;
-            word-break: break-all;
-        }
-
-        .placeholder-text {
-            color: #888;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 80px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDF Merger | CSC VLE TOOLS</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/portal.css"><link rel="stylesheet" href="assets/css/csc-system.css">
+  <meta name="description" content="Join several PDF files into one. Free online tool for CSC &amp; VLE centres, cyber cafes and students.">
+  <meta name="keywords" content="PDF Merger, PDF tools, merge PDF, split PDF, JPG to PDF, Word to PDF, CSC VLE tools, CSC center tools, VLE tools, free online tool, Rohtak Haryana">
+  <meta name="author" content="CSC VLE TOOLS">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pdf_merger.html">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="CSC VLE TOOLS"><meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="PDF Merger | CSC VLE TOOLS"><meta property="og:description" content="Join several PDF files into one. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta property="og:url" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pdf_merger.html"><meta property="og:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="PDF Merger | CSC VLE TOOLS"><meta name="twitter:description" content="Join several PDF files into one. Free online tool for CSC &amp; VLE centres, cyber cafes and students."><meta name="twitter:image" content="https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/og-image.png">
+  <meta name="geo.region" content="IN-HR"><meta name="geo.placename" content="Rohtak, Haryana">
+  <meta name="theme-color" content="#1a3fa6">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "PDF Merger", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pdf_merger.html", "description": "Join several PDF files into one. Free online tool for CSC & VLE centres, cyber cafes and students.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "inLanguage": "en-IN", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@type": "Organization", "name": "CSC VLE TOOLS", "url": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/"}, {"@type": "ListItem", "position": 2, "name": "PDF Merger", "item": "https://csc-vle-tools-desk.github.io/CSC-VLE-TOOLS/tools_pdf_merger.html"}]}</script>
 </head>
 <body>
-
-    <div class="container">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
-        
-        <div class="header">
-            <h1><i class="fa-solid fa-file-pdf"></i> PDF Merger & Image to PDF Converter</h1>
-            <p>Upload multiple images (JPEGs, PNGs) and combine them instantly into a single formatted PDF document.</p>
-        </div>
-
-        <div class="workspace">
-            <!-- Left Form Panel -->
-            <div class="form-panel">
-                <h3>1. Select Images to Merge</h3>
-                <div class="input-group">
-                    <label>Choose Multiple Image Files</label>
-                    <input type="file" id="imageInput" accept="image/*" multiple onchange="handleFiles(event)">
-                </div>
-                <p style="font-size: 12px; color: #666; margin-top: 10px;">
-                    <i class="fa-solid fa-info-circle"></i> You can select multiple files at once. They will be compiled into PDF pages in the order selected.
-                </p>
-
-                <button class="btn-action" id="convertBtn" onclick="generatePDF()" style="display: none;"><i class="fa-solid fa-file-arrow-down"></i> Convert & Download PDF</button>
-            </div>
-
-            <!-- Right Preview Panel -->
-            <div class="preview-panel" id="previewPanel">
-                <div id="placeholder" class="placeholder-text">
-                    <i class="fa-regular fa-images" style="font-size: 40px; color: #ccc; margin-bottom: 10px;"></i><br>
-                    No images selected yet. Upload images to preview.
-                </div>
-                <div id="thumbnailGrid" class="thumbnail-grid" style="display: none;"></div>
-            </div>
-        </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header"></header>
+  <main id="main">
+    <div class="page-head no-print">
+      <div class="crumbs"><a href="index.html">Home</a> / PDF Merger</div>
+      <h1>PDF Merger</h1>
+      <p>Join several PDF files into one.</p>
     </div>
+    <div id="tool-root"><noscript>This tool needs JavaScript. Please turn it on in your browser.</noscript></div>
+  </main>
+    <section class="seo-about" aria-labelledby="about-tool"><div class="box">
+    <h2 id="about-tool">About PDF Merger</h2>
+    <p>Join several PDF files into one. PDF Merger is a free online tool on CSC VLE TOOLS, made for CSC and VLE centres, cyber cafes, students and job seekers.</p>
+    <ul><li>Free to use, with no sign-up or login</li><li>Runs in your browser, so your files are not uploaded to our servers</li><li>Works on mobile, tablet and desktop</li></ul>
+    <p>Please check the final result against the latest official instructions before you submit or print it. See our <a href="disclaimer.html">disclaimer</a>.</p>
+    <h3 style="margin:16px 0 10px;color:var(--brand);font-size:1rem">More in PDF Tools</h3><div class="rel"><a href="tools_jpg_to_pdf.html">JPG to PDF</a><a href="tools_pdf_splitter.html">PDF Splitter</a><a href="tools_pdf_watermark.html">PDF Watermark</a><a href="tools_word_to_pdf.html">Word to PDF</a><a href="tools_pdf_compressor.html">PDF Compressor / Resizer</a><a href="tools_pdf_to_jpg.html">PDF to JPG / PNG</a></div>
+  </div></section>
+  <footer id="site-footer"></footer>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/tools-pdf.js"></script>
+  <script>CSC.mount('pdf_merger');</script>
 
-    <script>
-        let uploadedFiles = [];
-
-        function handleFiles(event) {
-            const files = Array.from(event.target.files);
-            if (files.length === 0) return;
-
-            uploadedFiles = files;
-            const grid = document.getElementById('thumbnailGrid');
-            const placeholder = document.getElementById('placeholder');
-            const convertBtn = document.getElementById('convertBtn');
-
-            grid.innerHTML = '';
-            grid.style.display = 'grid';
-            placeholder.style.display = 'none';
-            convertBtn.style.display = 'block';
-
-            uploadedFiles.forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const card = document.createElement('div');
-                    card.className = 'thumb-card';
-                    card.innerHTML = `
-                        <img src="${e.target.result}" alt="Preview">
-                        <span>Page ${index + 1}: ${file.name}</span>
-                    `;
-                    grid.appendChild(card);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        async function generatePDF() {
-            if (uploadedFiles.length === 0) {
-                alert('Please select at least one image first.');
-                return;
-            }
-
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-
-            for (let i = 0; i < uploadedFiles.length; i++) {
-                const file = uploadedFiles[i];
-                const dataUrl = await readFileAsDataURL(file);
-
-                if (i > 0) {
-                    pdf.addPage();
-                }
-
-                // Calculate proportions to fit A4 page neatly
-                const imgProps = await getImageDimensions(dataUrl);
-                const imgWidth = pageWidth - 20; // 10mm margins
-                const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
-
-                const finalHeight = imgHeight > (pageHeight - 20) ? (pageHeight - 20) : imgHeight;
-                const finalWidth = imgHeight > (pageHeight - 20) ? (imgProps.width * (pageHeight - 20)) / imgProps.height : imgWidth;
-
-                const x = (pageWidth - finalWidth) / 2;
-                const y = (pageHeight - finalHeight) / 2;
-
-                pdf.addImage(dataUrl, 'JPEG', x, y, finalWidth, finalHeight);
-            }
-
-            pdf.save('merged_document.pdf');
-        }
-
-        function readFileAsDataURL(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function getImageDimensions(url) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve({ width: img.width, height: img.height });
-                img.src = url;
-            });
-        }
-    </script>
+  <script src="assets/js/demo-mode.js"></script>
 </body>
 </html>
